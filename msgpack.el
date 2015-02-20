@@ -144,21 +144,21 @@
             ((<= obj (- (expt 2 32) 1)) ;; uint32
              (bindat-pack uint32-spec '((header-type . #xce)
                                         (uint32-type . obj))))
-            (t (error "Unsupported type"))))
-  
-  ;; Negative ints
-  (cond ((>= -32) ;; Negative fixnum
-         (bindat-pack fixnum-spec '((fixnum-type . obj))))
-        ((>= obj (expt (2 (- 8 1)))) ;; int8 (signed, so a two's complement number on 8 bit)
-         (bindat-pack int8-spec '((header-type . #xd0)
-                                  (int8-type . obj))))
-        ((>= obj (expt (2 (- 16 1)))) ;; int16 (signed, so a two's complement number on 16 bit)
-         (bindat-pack int16-spec '((header-type . #xd1)
-                                   (int16-type . obj))))
-        ((>= obj (expt (2 (- 32 1)))) ;; int32 (signed, so a two's complement number on 32 bit)
-         (bindat-pack int32-spec '((header-type . #xd2)
-                                   (int32-type . obj))))
-        (t (error "Unsupported type"))))
+            (t (error "Unsupported type")))
+      
+      ;; Negative ints
+      (cond ((>= -32) ;; Negative fixnum
+             (bindat-pack fixnum-spec '((fixnum-type . obj))))
+            ((>= obj (expt (2 (- 8 1)))) ;; int8 (signed, so a two's complement number on 8 bit)
+             (bindat-pack int8-spec '((header-type . #xd0)
+                                      (int8-type . obj))))
+            ((>= obj (expt (2 (- 16 1)))) ;; int16 (signed, so a two's complement number on 16 bit)
+             (bindat-pack int16-spec '((header-type . #xd1)
+                                       (int16-type . obj))))
+            ((>= obj (expt (2 (- 32 1)))) ;; int32 (signed, so a two's complement number on 32 bit)
+             (bindat-pack int32-spec '((header-type . #xd2)
+                                       (int32-type . obj))))
+            (t (error "Unsupported type")))))
 
 (defun pack-str (obj)
   "Pack OBJ as string type."
